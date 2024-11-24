@@ -1,0 +1,16 @@
+{
+    "name": "keysheero/supertilt",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Keysheero\\Supertilt\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "keysheero",
+            "email": "kbelakov88@gmail.com"
+        }
+    ],
+    "require": {}
+}

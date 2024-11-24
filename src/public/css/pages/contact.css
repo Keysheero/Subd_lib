@@ -1,0 +1,37 @@
+.hero {
+    background-image: url("/supertilt/src/public/assets/img/img_2.png");
+}
+.cooperation-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cooperation-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.cooperation-section ul {
+    list-style-type: none;
+    padding: 0;
+    display: inline-block;
+    text-align: left;
+}
+
+.cooperation-section li {
+    background-color: #f4f4f4;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.cooperation-section .icon {
+    width: 24px; /* Размер иконок */
+    height: 24px;
+    margin-right: 10px;
+}
+
+
+
