@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: build/Dockerfile
+    container_name: php_app
+    depends_on:
+      - postgres
+
+
+  postgres:
+    container_name: 'GrandPrix_Container'
+    image: 'postgres:15.3-alpine'
+    ports:
+      - '5444:5432'
+    restart: 'unless-stopped'
+    env_file:
+      - '../configuration/.env'
+    volumes:
+      - pg_data_gp:/var/lib/postgresql/data
+
+
+
+volumes:
+  pg_data_gp:

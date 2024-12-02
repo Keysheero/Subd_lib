@@ -3,7 +3,11 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Keysheero\\Supertilt\\": "src/"
+            "src\\": "src/",
+            "Infrastructure\\": "src/internal/infrastructure/",
+            "Application\\": "src/internal/application/",
+            "Domain\\": "src/internal/domain/",
+            "Interfaces\\": "src/internal/interfaces/"
         }
     },
     "authors": [
@@ -12,5 +16,11 @@
             "email": "kbelakov88@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/yaml": "^7.1",
+        "ext-pdo": "*",
+        "robmorgan/phinx": "^0.16.5",
+        "nikic/fast-route": "^1.3",
+        "zircote/swagger-php": "^4.11"
+    }
 }

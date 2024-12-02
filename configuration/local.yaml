@@ -1,0 +1,14 @@
+env: "local"
+http_server:
+  address: "127.0.0.1:8085"
+  timeout: 30
+  idle_timeout: 60
+database:
+  host: "localhost"
+  port: 5444
+  username: "keysheero"
+  password: "keysheero_db"
+  name: "GrandPrixPG"
+  max_attempts: 3
+auth:
+  secret: "supersecretkey"

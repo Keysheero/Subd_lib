@@ -1,5 +1,5 @@
 .hero {
-    background-image: url("/supertilt/src/public/assets/img/img_4.png");
+    background-image: url("/assets/img/img_4.png");
 }
 .features {
     display: flex;
@@ -53,7 +53,7 @@
 }
 
 .advice-section .icon {
-    width: 24px; /* Размер иконок */
+    width: 24px;
     height: 24px;
     margin-right: 10px;
 }
