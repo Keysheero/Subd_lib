@@ -12,20 +12,22 @@ class ResumeController
     {
         $this->resumeService = $resumeService;
     }
-
+    
 
     public function createResume(): void
     {
-        $userId = $_POST['user_id'] ?? null;
+        header('Content-Type: application/json');
+
+        $userId = $_POST['user_id'] ?? 1;
         $title = $_POST['title'] ?? '';
         $description = $_POST['description'] ?? '';
         $status = $_POST['status'] ?? 'active';
 
         if ($userId && $title) {
             $this->resumeService->create($userId, $title, $description, $status);
-            echo "Resume created successfully!";
+            echo json_encode(['success' => true, 'message'=>'it was not that hard right?']);
         } else {
-            echo "Error: Missing user ID or title.";
+            echo json_encode(['success' => false, 'message' => 'please no']);;
         }
     }
 

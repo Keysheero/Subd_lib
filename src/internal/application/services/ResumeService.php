@@ -6,7 +6,10 @@ use Domain\repository\ResumeRepositoryInterface;
 
 class ResumeService {
     private ResumeRepositoryInterface $resumeRepository;
-
+    public function getAllResumes(): array
+    {
+        return $this->resumeRepository->findAll();
+    }
     public function __construct(ResumeRepositoryInterface $resumeRepository)
     {
         $this->resumeRepository = $resumeRepository;

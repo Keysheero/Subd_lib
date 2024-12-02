@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
     const registerForm = document.getElementById("registerForm");
 
-    // Обработка формы логина
     document.getElementById("submitLogin").addEventListener("click", async () => {
         const formData = new FormData(loginForm);
         const response = await fetch('/user/login', {
@@ -54,13 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
         if (result.success) {
             alert("Вы успешно вошли!");
-            window.location.reload(); // Перезагрузка страницы (если нужно)
+            window.location.reload();
         } else {
             alert(result.message || "Ошибка входа");
         }
     });
 
-    // Обработка формы регистрации
     document.getElementById("submitRegister").addEventListener("click", async () => {
         const formData = new FormData(registerForm);
         const response = await fetch('/user/register', {
@@ -70,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
         if (result.success) {
             alert("Вы успешно зарегистрировались!");
-            window.location.reload(); // Перезагрузка страницы (если нужно)
+            window.location.reload();
         } else {
             alert(result.message || "Ошибка регистрации");
         }

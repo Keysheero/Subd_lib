@@ -61,6 +61,23 @@ class ResumeRepository implements ResumeRepositoryInterface
             $results
         );
     }
+    public function findAll(): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM resumes');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(
+            fn($data) => new Resume(
+                (int)$data['id'],
+                (int)$data['user_id'],
+                $data['title'],
+                $data['description'],
+                $data['status'],
+            ),
+            $results
+        );
+    }
 
     public function updateStatus(int $resumeId, string $status): void
     {

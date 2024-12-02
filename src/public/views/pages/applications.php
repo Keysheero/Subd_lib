@@ -14,6 +14,21 @@ include $basePath . '/src/public/views/partials/header.php';
         <a href="#" class="cta" id="applyNowBtn">Apply Now</a>
     </div>
 </section>
+<div id="resumeModal" class="resume-modal">
+    <div class="resume-modal-content">
+        <span class="resumeClose" id="resume-closeModal">&times;</span>
+        <h2>Create Your Resume</h2>
+        <form id="resumeForm" action="/resume/create" method="POST">
+            <label for="title">Resume Title:</label>
+            <input type="text" id="title" name="title" required placeholder="Enter title of your resume">
+
+            <label for="description">Resume Description:</label>
+            <textarea id="description" name="description" required placeholder="Enter a brief description of your resume"></textarea>
+
+            <button type="button" id="submitResume" class="cta">Submit Resume</button>
+        </form>
+    </div>
+</div>
 
 <div class="application-text">
     <h2>Our Applications</h2>
@@ -40,6 +55,10 @@ include $basePath . '/src/public/views/partials/header.php';
         </div>
     </div>
 </section>
+<script src="js/resume_modal.js">
 
+
+
+</script>
 <?php include $basePath . '/src/public/views/partials/footer.php';
 ?>
