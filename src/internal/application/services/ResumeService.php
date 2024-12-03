@@ -30,4 +30,9 @@ class ResumeService {
         $this->resumeRepository->updateStatus($id, $status);
 
     }
+    public function findById(int $id): ?Resume
+    {
+        return $this->resumeRepository->findById($id);
+    }
+
 }

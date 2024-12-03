@@ -7,7 +7,7 @@ use Domain\repository\UserRepositoryInterface;
 
 class UserService
 {
-    private UserRepositoryInterface $userRepository;
+    public UserRepositoryInterface $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
@@ -32,5 +32,11 @@ class UserService
 
         $this->userRepository->create($user);
     }
+    public function findEmailByUserId(int $userId): ?string
+    {
+        $user = $this->userRepository->findById($userId);
+        return $user ? $user->email : null;
+    }
+
 
 }

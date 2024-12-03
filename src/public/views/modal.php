@@ -21,8 +21,8 @@
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Пароль" required>
             <select name="role" required>
-                <option value="user">Пользователь</option>
-                <option value="investor">Инвестор</option>
+                <option value="User">Пользователь</option>
+                <option value="Investor">Инвестор</option>
             </select>
             <button type="button" id="submitRegister">Зарегистрироваться</button>
         </form>

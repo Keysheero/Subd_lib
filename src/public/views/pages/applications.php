@@ -18,41 +18,31 @@ include $basePath . '/src/public/views/partials/header.php';
     <div class="resume-modal-content">
         <span class="resumeClose" id="resume-closeModal">&times;</span>
         <h2>Create Your Resume</h2>
-        <form id="resumeForm" action="/resume/create" method="POST">
+        <form id="resumeForm" method="POST">
             <label for="title">Resume Title:</label>
             <input type="text" id="title" name="title" required placeholder="Enter title of your resume">
 
             <label for="description">Resume Description:</label>
             <textarea id="description" name="description" required placeholder="Enter a brief description of your resume"></textarea>
 
-            <button type="button" id="submitResume" class="cta">Submit Resume</button>
+            <button type="submit" class="cta">Submit Resume</button>
         </form>
     </div>
 </div>
-
 <div class="application-text">
     <h2>Our Applications</h2>
 </div>
 
 <section class="applications-list">
     <div class="container">
-        <div class="application-item">
-            <h3>John Doe</h3>
-            <p>Looking for funding to complete a degree in Software Engineering.</p>
-            <a href="#" class="more-details-btn">See Details</a>
-        </div>
+        <?php foreach ($resumes as $resume): ?>
+            <div class="application-item">
+                <h3><?= htmlspecialchars($resume->title) ?></h3>
+                <p><?= htmlspecialchars($resume->description) ?></p>
+                <button class="contact-btn" data-resume-id="<?php echo $resume->id; ?>">Contact</button>
 
-        <div class="application-item">
-            <h3>Jane Smith</h3>
-            <p>Seeking sponsorship for medical school.</p>
-            <a href="#" class="more-details-btn">See Details</a>
-        </div>
-
-        <div class="application-item">
-            <h3>Mark Evans</h3>
-            <p>Needs financial support to finish law school.</p>
-            <a href="#" class="more-details-btn">See Details</a>
-        </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </section>
 <script src="js/resume_modal.js">

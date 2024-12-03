@@ -31,9 +31,15 @@
             </ul>
         </nav>
         <div class="auth-links">
-            <button id="loginBtn" class="login-btn">Login</button>
-            <button id="registerBtn" class="register-btn">Register</button>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <span class="user-name">Welcome, <?php echo htmlspecialchars($_SESSION['user_name'] ?? 'User'); ?></span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            <?php else: ?>
+                <button id="loginBtn" class="login-btn">Login</button>
+                <button id="registerBtn" class="register-btn">Register</button>
+            <?php endif; ?>
         </div>
+
     </div>
 </header>
 

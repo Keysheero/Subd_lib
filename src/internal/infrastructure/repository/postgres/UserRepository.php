@@ -28,6 +28,19 @@ class UserRepository implements UserRepositoryInterface
             $data['password'],
             $data['role']
         ) : null;
+    }public function findByID(int $id): ?User
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM users WHERE id = :id');
+        $stmt->execute(['id' => $id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $data ? new User(
+            (int)$data['id'],
+            $data['name'],
+            $data['email'],
+            $data['password'],
+            $data['role']
+        ) : null;
     }
 
     public function create(User $user): void

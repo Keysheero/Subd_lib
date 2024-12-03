@@ -7,6 +7,4 @@
         <a href="#">Terms of Service</a>
     </div>
 </footer>
-<script src="../../js/modal.js"></script>
-<script src="../../js/navigation.js"></script>
 

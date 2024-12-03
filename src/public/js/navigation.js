@@ -28,7 +28,22 @@ document.addEventListener("DOMContentLoaded", () => {
     addHoverEffect();
 });
 function navigateToPage(page) {
-    const baseUrl = '/'; // Укажите базовый путь для роутинга
+    const baseUrl = '/';
     const url = `${baseUrl}?page=${page}`;
     window.location.assign(url);
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+            const response = await fetch('/user/logout', { method: 'POST' });
+            const result = await response.json();
+            if (result.success) {
+                alert('Вы вышли из системы.');
+                window.location.reload();
+            } else {
+                alert('Ошибка при выходе.');
+            }
+        });
+    }
+});

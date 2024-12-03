@@ -7,7 +7,7 @@ use Application\services\UserService;
 
 class UserController
 {
-    private UserService $userService;
+    public UserService $userService;
 
     public function __construct(UserService $userService)
     {
@@ -19,33 +19,51 @@ class UserController
 
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
-        if ($this->userService->login($email, $password)) {
+
+        $user = $this->userService->userRepository->findByEmail($email);
+        if ($user && password_verify($password, $user->passwordHash)) {
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_role'] = $user->role;
             echo json_encode(['success' => true]);
         } else {
-            echo json_encode(['success' => false, 'message' => ' not authenticated']);;
+            echo json_encode(['success' => false, 'message' => 'Invalid credentials']);
         }
-
     }
+
 
 
     public function register(): void
     {
         header('Content-Type: application/json');
+
         $email = $_POST['email'] ?? '';
         $name = $_POST['name'] ?? '';
         $password = $_POST['password'] ?? '';
-        $role = $_POST['role'] ?? '';
-        if ($role == 'user') {
-            $role = 'User';
-        } else {
-            $role = 'Investor';
-        }
+        $role = $_POST['role'] ?? 'User';
 
         if ($email && $name && $password) {
-            $this->userService->register($email, $name, $password, $role);
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $this->userService->register($email, $name, $hashedPassword, $role);
             echo json_encode(['success' => true]);
         } else {
-            echo json_encode(['success' => false, 'message' => 'seems bad for you']);
+            echo json_encode(['success' => false, 'message' => 'Invalid input']);
         }
     }
+    public function checkAuth(): void
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Content-Type: application/json', true, 401);
+            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+            exit;
+        }
+    }
+    public function logout(): void
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        echo json_encode(['success' => true, 'message' => 'Logged out']);
+    }
+
+
 }

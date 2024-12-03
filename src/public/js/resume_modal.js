@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
         resumeModal.style.display = "none";
     });
 
-    submitResumeButton.addEventListener("click", async () => {
+    resumeForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
         const formData = new FormData(resumeForm);
         const response = await fetch('/resume/create', {
             method: 'POST',
@@ -29,9 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    window.addEventListener("click", (event) => {
-        if (event.target === resumeModal) {
-            resumeModal.style.display = "none";
-        }
-    });
+    if (event.target === resumeModal) {
+        resumeModal.style.display = "none";
+    }
 });
