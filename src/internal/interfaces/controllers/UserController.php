@@ -20,10 +20,12 @@ class UserController
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
+
         $user = $this->userService->userRepository->findByEmail($email);
         if ($user && password_verify($password, $user->passwordHash)) {
             $_SESSION['user_id'] = $user->id;
             $_SESSION['user_role'] = $user->role;
+            $_SESSION['user_name'] = $user->name;
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Invalid credentials']);

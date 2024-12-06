@@ -1,0 +1,71 @@
+.hero {
+    background-image: url("/assets/img/night-empty-home-office-room-interior-cartoon-vector-47926836.png");
+}
+.resumes-list .resume-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.resumes-list  .delete-btn {
+    margin-right: 5px;
+    cursor: pointer;
+}
+.resumes-list .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.resume-item {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.resume-item h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0 0 10px;
+}
+
+.resume-item p {
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 15px;
+}
+
+.resume-item .actions {
+    display: flex;
+    gap: 10px;
+}
+
+.resume-item .delete-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.resume-item .delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.resume-item .delete-btn:hover {
+    background: #a71d2a;
+}

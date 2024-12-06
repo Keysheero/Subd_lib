@@ -1,5 +1,5 @@
 <?php
-$title = 'GrandPrix - Home';
+$title = 'GrandPrix';
 $cssFile = 'services.css';
 $page = 'services';
 $basePath = dirname(__DIR__, 4);

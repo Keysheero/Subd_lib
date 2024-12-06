@@ -73,20 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
             alert(result.message || "Ошибка регистрации");
         }
     });
-    document.querySelectorAll('.contact-btn').forEach(button => {
-        button.addEventListener('click', async () => {
-
-            const resumeId = button.dataset.resumeId;
-            const response = await fetch(`/resume/contact/${resumeId}`);
-            const result = await response.json();
-
-            if (result.success) {
-                alert(`Email автора резюме: ${result.email}`);
-            } else {
-                alert(result.message || 'Ошибка при получении email.');
-            }
-        });
-    });
+    // document.querySelectorAll('.contact-btn').forEach(button => {
+    //     button.addEventListener('click', async () => {
+    //
+    //         const resumeId = button.dataset.resumeId;
+    //         const response = await fetch(`/resume/contact/${resumeId}`);
+    //         const result = await response.json();
+    //
+    //         if (result.success) {
+    //             alert(`Email автора резюме: ${result.email}`);
+    //         } else {
+    //             alert(result.message || 'Ошибка при получении email.');
+    //         }
+    //     });
+    // });
 
 });
 

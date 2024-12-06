@@ -11,7 +11,7 @@ include $basePath . '/src/public/views/partials/header.php';
     <div class="hero-text">
         <h2>Contact us</h2>
         <p>Choose the convenient way to contact us!</p>
-        <a href="#" class="cta" id="applyNowBtn">Contact us</a>
+        <a href="#" class="cta" id="contactUsBtn">Contact us</a>
     </div>
 </section>
 
@@ -25,5 +25,13 @@ include $basePath . '/src/public/views/partials/header.php';
         <li><img src="/assets/img/contact/job-offer.png" alt="Icon" class="icon"> Job Placement Assistance</li>
     </ul>
 </div>
+<div id="contactModal" class="contact-modal">
+    <div class="contact-modal-content">
+        <span class="contact-close" id="contact-closeModal">&times;</span>
+        <h3>Contact Information</h3>
+        <p>Email: <span id="contact-email">keysheero@gmail.com</span></p>
+    </div>
+</div>
 
+<script src="/js/contact.js"></script>
 <?php include $basePath . '/src/public/views/partials/footer.php'; ?>

@@ -26,12 +26,14 @@ $dispatcher = FastRoute\simpleDispatcher(function (RouteCollector $r) {
     $r->addRoute('POST', '/resume/update-status', 'resume_update_status');
     $r->addRoute('POST', '/resume/delete', 'resume_delete');
     $r->addRoute('GET', '/resume/contact/{id}', 'resume_contact');
+    $r->addRoute('POST', '/resume/count', 'resume_count');
 
 
     $r->addRoute('GET', '/home', 'home_load');
     $r->addRoute('GET', '/services', 'services_load');
     $r->addRoute('GET', '/applications', 'resume_applications_load');
     $r->addRoute('GET', '/contact', 'contact_load');
+    $r->addRoute('GET', '/profile', 'profile_load');
 });
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -71,7 +73,7 @@ switch ($routeInfo[0]) {
         $userController = new UserController($userService);
         $resumeController = new ResumeController($resumeService, $userService);
 
-        $pageController = new PageController();
+        $pageController = new PageController($resumeService);
 
 
         if ($handler == 'user_register') {
@@ -83,25 +85,31 @@ switch ($routeInfo[0]) {
         } elseif ($handler == 'resume_create') {
             $userController->checkAuth();
             $resumeController->createResume();
+        } elseif ($handler == 'resume_applications_load') {
+            $pageController->applicationsLoad();
         } elseif ($handler == 'resume_update_status') {
             $userController->checkAuth();
             $resumeController->updateResumeStatus();
         } elseif ($handler == 'resume_delete') {
             $userController->checkAuth();
             $resumeController->deleteResume();
-        }elseif ($handler == 'resume_contact') {
+        }elseif ($handler == 'resume_count') {
+            $userController->checkAuth();
+            $resumeController->getResumeCount();
+        } elseif ($handler == 'resume_contact') {
             $userController->checkAuth();
             $resumeId = $vars['id'];
             $resumeController->getContact($resumeId);
-        }
-        elseif ($handler == 'home_load') {
+        } elseif ($handler == 'home_load') {
             $pageController->home_load();
         } elseif ($handler == 'services_load') {
             $pageController->services_load();
         } elseif ($handler == 'contact_load') {
             $pageController->contact_load();
-        } elseif ($handler == 'resume_applications_load') {
-            $resumeController->applicationsLoad();
+        }elseif ($handler == 'profile_load') {
+            $userController->checkAuth();
+            $userId = $_SESSION['user_id'];
+            $pageController->profile_load($userId);
         }
 
         break;

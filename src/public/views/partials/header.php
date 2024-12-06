@@ -1,7 +1,7 @@
 <?php global $page; ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'views/modal.php'; ?>
+<?php include 'views/modals/auth_modal.php'; ?>
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
                 <?php
                 $navItems = [
                     'home' => 'Home',
-                    'about' => 'About',
+                    'profile' => 'Profile',
                     'services' => 'Services',
                     'applications' => 'Applications',
                     'contact' => 'Contact',

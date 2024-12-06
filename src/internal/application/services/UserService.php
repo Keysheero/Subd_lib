@@ -27,15 +27,14 @@ class UserService
     }
     public function register(string $email, $name, $password, $role): void
     {
-        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-        $user = new User((int)null,$name, $email , $passwordHash, $role);
+        $user = new User((int)null,$name, $email , $password, $role);
 
         $this->userRepository->create($user);
     }
     public function findEmailByUserId(int $userId): ?string
     {
         $user = $this->userRepository->findById($userId);
-        return $user ? $user->email : null;
+        return $user?->email;
     }
 
 

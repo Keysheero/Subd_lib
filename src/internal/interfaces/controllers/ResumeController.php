@@ -8,6 +8,7 @@ use Application\services\UserService;
 class ResumeController
 {
     private ResumeService $resumeService;
+    private UserService $userService;
 
     public function __construct(ResumeService $resumeService, UserService $userService)
     {
@@ -15,16 +16,11 @@ class ResumeController
         $this->userService = $userService;
     }
 
-    public function applicationsLoad(): void
-    {
-        $resumes = $this->resumeService->getAllResumes();
-        include __DIR__ . '/../../../public/views/pages/applications.php';
-    }
+
     public function createResume(): void
     {
         header('Content-Type: application/json');
-        include __DIR__ . '/../../../public/views/applications.php';
-        $userId = $_POST['user_id'] ?? 1;
+        $userId = $_POST['user_id'];
         $title = $_POST['title'] ?? '';
         $description = $_POST['description'] ?? '';
         $status = $_POST['status'] ?? 'active';
@@ -64,14 +60,18 @@ class ResumeController
 
         $email = $this->userService->findEmailByUserId($resume->userId);
         if ($email) {
-            echo json_encode(['success' => true, 'email' => $email]);
+            echo json_encode([
+                'success' => true,
+                'email' => $email
+            ]);
         } else {
             echo json_encode(['success' => false, 'message' => 'User not found']);
         }
     }
     public function deleteResume(): void
     {
-        $id = $_POST['id'] ?? null;
+        $inputData = json_decode(file_get_contents('php://input'), true);
+        $id = $inputData['id'] ?? null;
 
         if ($id) {
             $this->resumeService->delete($id);
@@ -80,4 +80,24 @@ class ResumeController
             echo "Error: Missing resume ID.";
         }
     }
+    public function getResumeCount(): void
+    {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['user_id'])) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing user_id']);
+            return;
+        }
+
+        $userId = (int) $data['user_id'];
+
+        $count = $this->resumeService->getUserResumeCount($userId);
+
+        echo json_encode(['resumeCount' => $count]);
+    }
+
+
 }

@@ -60,6 +60,7 @@ class ResumeRepository implements ResumeRepositoryInterface
             ),
             $results
         );
+
     }
     public function findAll(): array
     {
@@ -78,6 +79,13 @@ class ResumeRepository implements ResumeRepositoryInterface
             $results
         );
     }
+    public function getUserResumeCount(int $userId): int
+    {
+        $query = "SELECT COUNT(*) FROM resumes WHERE user_id = :user_id";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute(['user_id' => $userId]);
+        return (int) $stmt->fetchColumn();
+    }
 
     public function updateStatus(int $resumeId, string $status): void
     {
@@ -95,4 +103,6 @@ class ResumeRepository implements ResumeRepositoryInterface
         $stmt = $this->connection->prepare('DELETE FROM resumes WHERE id = :id');
         $stmt->execute(['id' => $resumeId]);
     }
+
+
 }

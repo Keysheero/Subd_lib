@@ -2,33 +2,22 @@
 $title = 'GrandPrix - Home';
 $cssFile = 'applications.css';
 $page = 'applications.php   ';
+$userId = $_SESSION['user_id'];
 $basePath = dirname(__DIR__, 4);
 include $basePath . '/src/public/views/partials/header.php';
+include $basePath . '/src/public/views/modals/resume_modal.php';
+
 ?>
-<link rel="stylesheet" href=<?php $basePath?>"/css/pages/applications.css">
-<link rel="stylesheet" href= <?php $basePath?>"/css/template.css">
+<link rel="stylesheet" href="/css/pages/applications.css">
+<link rel="stylesheet" href="/css/template.css">
 <section class="hero">
     <div class="hero-text">
         <h2>Submit Your Application</h2>
         <p>Join GrandPrix and get financial support for your education.</p>
-        <a href="#" class="cta" id="applyNowBtn">Apply Now</a>
+        <a href="#" class="cta" id="applyNowBtn" data-user-id="<?= htmlspecialchars($userId) ?>">Apply Now</a>
     </div>
 </section>
-<div id="resumeModal" class="resume-modal">
-    <div class="resume-modal-content">
-        <span class="resumeClose" id="resume-closeModal">&times;</span>
-        <h2>Create Your Resume</h2>
-        <form id="resumeForm" method="POST">
-            <label for="title">Resume Title:</label>
-            <input type="text" id="title" name="title" required placeholder="Enter title of your resume">
 
-            <label for="description">Resume Description:</label>
-            <textarea id="description" name="description" required placeholder="Enter a brief description of your resume"></textarea>
-
-            <button type="submit" class="cta">Submit Resume</button>
-        </form>
-    </div>
-</div>
 <div class="application-text">
     <h2>Our Applications</h2>
 </div>
@@ -39,16 +28,25 @@ include $basePath . '/src/public/views/partials/header.php';
             <div class="application-item">
                 <h3><?= htmlspecialchars($resume->title) ?></h3>
                 <p><?= htmlspecialchars($resume->description) ?></p>
-                <button class="contact-btn" data-resume-id="<?php echo $resume->id; ?>">Contact</button>
-
+                <button class="contact-btn" data-resume-id="<?php echo $resume->id; ?>"
+                        data-author-name="<?= htmlspecialchars($resume->user_id) ?>"
+                        data-author-email="<?= htmlspecialchars($resume->author_email) ?>">Contact
+                </button>
             </div>
         <?php endforeach; ?>
     </div>
 </section>
-<script src="js/resume_modal.js">
+<div id="contactModal" class="contact-modal">
+    <div class="contact-modal-content">
+        <span class="contact-close" id="closeModal">&times;</span>
+        <h2>Contact Author</h2>
+        <p><strong>Email:</strong> <span id="authorEmail"></span></p>
+    </div>
+</div>
+
+<script src="/js/resume.js"></script>
+<script src="/js/applications.js"></script>
 
 
-
-</script>
 <?php include $basePath . '/src/public/views/partials/footer.php';
 ?>

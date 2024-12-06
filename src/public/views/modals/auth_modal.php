@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/modal.css">
+<link rel="stylesheet" href="/css/modals/auth_modal.css">
 
 <div id="loginModal" class="modal">
     <div class="modal-content">

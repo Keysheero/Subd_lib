@@ -6,6 +6,13 @@ use Domain\repository\ResumeRepositoryInterface;
 
 class ResumeService {
     private ResumeRepositoryInterface $resumeRepository;
+
+
+    public function getUserResumes(int $user_id): array
+    {
+
+        return $this->resumeRepository->findByUserId($user_id);
+    }
     public function getAllResumes(): array
     {
         return $this->resumeRepository->findAll();
@@ -33,6 +40,10 @@ class ResumeService {
     public function findById(int $id): ?Resume
     {
         return $this->resumeRepository->findById($id);
+    }
+    public function getUserResumeCount(int $userId): int
+    {
+        return $this->resumeRepository->getUserResumeCount($userId);
     }
 
 }

@@ -28,6 +28,7 @@ class UserRepository implements UserRepositoryInterface
             $data['password'],
             $data['role']
         ) : null;
+
     }public function findByID(int $id): ?User
     {
         $stmt = $this->connection->prepare('SELECT * FROM users WHERE id = :id');

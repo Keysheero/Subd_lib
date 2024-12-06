@@ -3,21 +3,26 @@ footer {
     color: white;
     padding: 20px 0;
     text-align: center;
-}
-
-footer .footer-links {
-    margin-bottom: 15px;
-}
-
-footer .footer-links a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-}
-
-* {
-    margin: 0;
-    padding: 0;
+    position: relative;
+    width: 100%;
     box-sizing: border-box;
 }
 
+
+
+
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+    margin-top: auto;
+}
