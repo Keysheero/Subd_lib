@@ -22,16 +22,14 @@ class UserController
 
 
         $user = $this->userService->userRepository->findByEmail($email);
-        if ($user && password_verify($password, $user->passwordHash)) {
+        if ($user && password_verify($password, $user->password)) {
             $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_role'] = $user->role;
-            $_SESSION['user_name'] = $user->name;
+            $_SESSION['user_name'] = $user->username;
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Invalid credentials']);
         }
     }
-
 
 
     public function register(): void
@@ -41,11 +39,10 @@ class UserController
         $email = $_POST['email'] ?? '';
         $name = $_POST['name'] ?? '';
         $password = $_POST['password'] ?? '';
-        $role = $_POST['role'] ?? 'User';
 
         if ($email && $name && $password) {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $this->userService->register($email, $name, $hashedPassword, $role);
+            $this->userService->register($email, $name, $hashedPassword);
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Invalid input']);

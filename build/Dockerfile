@@ -20,4 +20,4 @@ COPY . /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
-CMD ["php-fpm"]
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "src/public/"]

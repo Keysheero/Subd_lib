@@ -27,13 +27,13 @@
 }
 
 .hero p {
-    font-size: 100%;
+    font-size: 150%;
     margin-bottom: 5%;
     background: linear-gradient(90deg, #93a7e0, #daa900);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 5px rgba(149, 199, 179, 0.6),
-    0 0 10px rgba(255, 204, 0, 0.6);
+    text-shadow: 0 0 5px rgb(133, 7, 7),
+    0 0 10px rgba(17, 15, 2, 0.6);
 }
 
 .cta {

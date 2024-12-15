@@ -2,7 +2,7 @@
 
 namespace Application\services;
 
-use Domain\entities\User;
+use Domain\Entities\User;
 use Domain\repository\UserRepositoryInterface;
 
 class UserService
@@ -18,16 +18,16 @@ class UserService
     {
         $user = $this->userRepository->findByEmail($email);
 
-        if ($user && password_verify($password, $user->passwordHash)) {
+        if ($user && password_verify($password, $user->password)) {
             return true;
         }
 
         return false;
 
     }
-    public function register(string $email, $name, $password, $role): void
+    public function register(string $email, $name, $password): void
     {
-        $user = new User((int)null,$name, $email , $password, $role);
+        $user = new User((int)null,$name,$password, $email );
 
         $this->userRepository->create($user);
     }

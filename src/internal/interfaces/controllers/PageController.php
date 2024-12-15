@@ -2,15 +2,15 @@
 
 namespace Interfaces\controllers;
 
-use Application\services\ResumeService;
+use Application\services\BookService;
 
 class PageController
 {
-    private ResumeService $resumeService;
+    private BookService $bookService;
 
-    public function __construct(ResumeService $resumeService)
+    public function __construct(BookService $bookService)
     {
-        $this->resumeService = $resumeService;
+        $this->bookService = $bookService;
     }
 
     public function home_load(): void
@@ -18,25 +18,26 @@ class PageController
         include __DIR__ . '/../../../public/views/pages/home.php';
     }
 
-    public function applicationsLoad(): void
+    public function books_load(): void
     {
-        $resumes = $this->resumeService->getAllResumes();
-        include __DIR__ . '/../../../public/views/pages/applications.php';
+        $search = $_GET['search'] ?? null;
+        $sortBy = $_GET['sort_by'] ?? null;
+        $sortOrder = $_GET['sort_order'] ?? 'asc';
+
+        $filters = [
+            'search' => $search,
+            'sort_by' => $sortBy,
+            'sort_order' => $sortOrder,
+        ];
+
+        $books = $this->bookService->getAllBooks($filters);
+        include __DIR__ . '/../../../public/views/pages/books.php';
     }
 
-    public function contact_load(): void
-    {
-        include __DIR__ . '/../../../public/views/pages/contact.php';
-    }
-
-    public function services_load(): void
-    {
-        include __DIR__ . '/../../../public/views/pages/services.php';
-    }
 
     public function profile_load(int $userId): void
     {
-        $resumes = $this->resumeService->getUserResumes($userId);
+        $books = $this->bookService->getUserBooks($userId);
         include __DIR__ . '/../../../public/views/pages/profile.php';
     }
 

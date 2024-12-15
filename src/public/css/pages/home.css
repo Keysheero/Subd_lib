@@ -1,19 +1,22 @@
 .hero {
-  background-image: url("/assets/img/bigstock-Contemporary-Interior-Of-Class-426516818-1500x500.jpg");
+  background-image: url("/assets/img/img_3.png");
 
 }
+
 
 .features {
   display: flex;
   justify-content: space-around;
-  padding: 50px 0;
-  background-color: #f4f4f4;
+  padding: 50px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .feature {
+  flex: 1;
+  margin: 0 20px;
   text-align: center;
-  padding: 20px;
-  max-width: 250px;
 }
 
 .feature h3 {
@@ -22,27 +25,33 @@
 }
 
 .how-it-works {
-  padding: 50px 20px;
   text-align: center;
+  padding: 50px 20px;
 }
 
 .how-it-works h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 30px;
 }
 
 .steps {
   display: flex;
   justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .step {
-  max-width: 250px;
+  flex: 1;
+  min-width: 250px;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
 }
 
 .step h4 {
   font-size: 1.3rem;
   margin-bottom: 10px;
 }
-
-

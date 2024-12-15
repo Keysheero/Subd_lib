@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $title ?? 'GrandPrix'; ?></title>
+    <title><?php echo $title ?? 'YourLib'; ?></title>
     <link rel="stylesheet" href="/css/partials/header.css">
 </head>
 <body>
@@ -18,10 +18,8 @@
                 <?php
                 $navItems = [
                     'home' => 'Home',
+                    'books' => 'Books',
                     'profile' => 'Profile',
-                    'services' => 'Services',
-                    'applications' => 'Applications',
-                    'contact' => 'Contact',
                 ];
                 foreach ($navItems as $key => $label) {
                     $activeClass = ($key === $page) ? 'active' : '';

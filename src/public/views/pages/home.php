@@ -1,5 +1,5 @@
 <?php
-$title = 'GrandPrix - Home';
+$title = 'LibraryApp - Home';
 $cssFile = 'home.css';
 $page = 'home.php';
 $basePath = dirname(__DIR__, 4);
@@ -10,39 +10,39 @@ include $basePath . '/src/public/views/partials/header.php';
 
 <section class="hero">
     <div class="hero-text">
-        <h2>Support Education for All</h2>
-        <p>We connect those in need of education funding with investors willing to support.</p>
-        <a href="#" class="cta">Get Started</a>
+        <h2>Welcome to Your Library</h2>
+        <p>Explore, borrow, and enjoy a wide collection of books across various genres and authors.</p>
+        <a href="/books" class="cta">Explore Books</a>
     </div>
 </section>
 <section class="features">
     <div class="feature">
-        <h3>For Learners</h3>
-        <p>Submit your application and get financial support to pursue your education dreams.</p>
+        <h3>For Readers</h3>
+        <p>Discover your next favorite book and expand your horizons with ease.</p>
     </div>
     <div class="feature">
-        <h3>For Investors</h3>
-        <p>Choose applications, provide funding, and help shape the future of learners.</p>
+        <h3>For Authors</h3>
+        <p>Showcase your work to a dedicated audience of book lovers.</p>
     </div>
     <div class="feature">
-        <h3>Secure Contracts</h3>
-        <p>Sign contracts with clear terms, ensuring smooth collaboration for both sides.</p>
+        <h3>Simple Borrowing</h3>
+        <p>Reserve books online and pick them up at your convenience.</p>
     </div>
 </section>
 <section class="how-it-works">
     <h2>How It Works</h2>
     <div class="steps">
         <div class="step">
-            <h4>1. Sign Up</h4>
-            <p>Register as a learner or an investor to get started.</p>
+            <h4>1. Register</h4>
+            <p>Create your account to start exploring our collection.</p>
         </div>
         <div class="step">
-            <h4>2. Apply or Choose</h4>
-            <p>Submit your application or browse through learner applications.</p>
+            <h4>2. Browse</h4>
+            <p>Search and discover books across a variety of genres and categories.</p>
         </div>
         <div class="step">
-            <h4>3. Make a Contract</h4>
-            <p>Work together by signing a secure contract for funding or services.</p>
+            <h4>3. Borrow</h4>
+            <p>Reserve your chosen books and pick them up at your nearest branch.</p>
         </div>
     </div>
 </section>

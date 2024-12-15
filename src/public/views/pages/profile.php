@@ -5,27 +5,33 @@ $cssFile = 'profile.css';
 $page = 'profile';
 $basePath = dirname(__DIR__, 4);
 include $basePath . '/src/public/views/partials/header.php';
-include $basePath . '/src/public/views/modals/resume_modal.php';?>
+include $basePath . '/src/public/views/modals/book_modal.php';?>
 <link rel="stylesheet" href="/css/pages/profile.css">
 <link rel="stylesheet" href="/css/template.css">
 <section class="hero">
     <div class="hero-text">
-        <h2>Manage your applications</h2>
-        <p>Make sure not to make more than 3 of them</p>
+        <h2>Manage your books</h2>
+        <p>Share books to other users</p>
         <a href="#" class="cta" id="applyNowBtn" data-user-id="<?= htmlspecialchars($userId) ?>">Apply Now</a>
     </div>
 </section>
-<section class="resumes-list">
+<section class="books-list">
     <div class="container">
-        <?php if (empty($resumes)): ?>
-            <p>You have not submitted any resumes yet.</p>
+        <?php if (empty($books)): ?>
+            <p>You have not uploaded any books yet.</p>
         <?php else: ?>
-            <?php foreach ($resumes as $resume): ?>
-                <div class="resume-item">
-                    <h3><?= htmlspecialchars($resume->title) ?></h3>
-                    <p><?= htmlspecialchars($resume->description) ?></p>
+            <?php foreach ($books as $book): ?>
+                <div class="book-item">
+                    <h3><?= htmlspecialchars($book['title']) ?></h3>
+                    <p><strong>Author:</strong> <?= htmlspecialchars($book['author_name']) ?></p>
+                    <p><strong>Published Date:</strong> <?= htmlspecialchars($book['published_date']) ?></p>
+                    <p><strong>Genre:</strong> <?= htmlspecialchars($book['genre']) ?></p>
                     <div class="actions">
-                        <button class="delete-btn" data-resume-id="<?= $resume->id ?>">Delete</button>
+                        <button class="update-btn" data-book-id="<?= $book['id'] ?>" data-title="<?= htmlspecialchars($book['title']) ?>"
+                                data-author="<?= htmlspecialchars($book['author_name']) ?>"
+                                data-published-date="<?= htmlspecialchars($book['published_date']) ?>"
+                                data-genre="<?= htmlspecialchars($book['genre']) ?>">Update</button>
+                        <button class="delete-btn" data-book-id="<?= $book['id'] ?>">Delete</button>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -34,7 +40,7 @@ include $basePath . '/src/public/views/modals/resume_modal.php';?>
 </section>
 
 
-<script src = "/js/resume_modal.js"></script>
-<script src = "/js/resume.js"></script>
 <script src = "/js/profile.js"></script>
+<script src = "/js/book.js"></script>
+<script src = "/js/user_books.js"></script>
 

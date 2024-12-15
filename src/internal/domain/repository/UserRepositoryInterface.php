@@ -1,12 +1,13 @@
 <?php
 
 namespace Domain\repository;
-use Domain\entities\User;
+
+use Domain\Entities\User;
 
 interface UserRepositoryInterface
 {
-    public function updatePassword(int $userId, string $newPasswordHash): void;
-    public function create(User $user): void;
     public function findByEmail(string $email): ?User;
     public function findByID(int $id): ?User;
+    public function create(User $user): void;
+    public function updatePassword(int $userId, string $newPasswordHash): void;
 }

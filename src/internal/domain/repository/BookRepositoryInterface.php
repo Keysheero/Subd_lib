@@ -1,16 +1,15 @@
 <?php
-namespace Domain\repository;
-use Domain\Entities\Resume;
 
-interface ResumeRepositoryInterface
+namespace Domain\Repository;
+
+use Domain\Entities\Book;
+
+interface BookRepositoryInterface
 {
-    public function create(Resume $resume): void;
-    public function findAll(): array;
-    public function findById(int $id): ?Resume;
-    public function getUserResumeCount(int $userId): int;
-    public function findByUserId(int $userId): array;
-
-    public function updateStatus(int $resumeId, string $status): void;
-
-    public function delete(int $resumeId): void;
+    public function findByID(int $id): ?Book;
+    public function findAll(array $filters = []): array;
+    public function create(Book $book, string $authorName, string $authorBirthDate): void;
+    public function delete(int $id): void;
+    public function findOrCreateAuthor(string $name, string $birthDate): int;
+    public function getBooksByUserId(int $userId): array;
 }

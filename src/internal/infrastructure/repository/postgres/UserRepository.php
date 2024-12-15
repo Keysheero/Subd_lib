@@ -2,8 +2,8 @@
 
 namespace Infrastructure\repository\postgres;
 
-use Domain\entities\User;
-use Domain\repository\UserRepositoryInterface;
+use Domain\Entities\User;
+use Domain\Repository\UserRepositoryInterface;
 use PDO;
 
 class UserRepository implements UserRepositoryInterface
@@ -21,47 +21,53 @@ class UserRepository implements UserRepositoryInterface
         $stmt->execute(['email' => $email]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $data ? new User(
-            (int)$data['id'],
-            $data['name'],
-            $data['email'],
-            $data['password'],
-            $data['role']
-        ) : null;
+        if (!$data) {
+            return null;
+        }
 
-    }public function findByID(int $id): ?User
+        return new User(
+            (int)$data['id'],
+            $data['username'],
+            $data['password'],
+            $data['email'],
+        );
+    }
+
+    public function findByID(int $id): ?User
     {
         $stmt = $this->connection->prepare('SELECT * FROM users WHERE id = :id');
         $stmt->execute(['id' => $id]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $data ? new User(
+        if (!$data) {
+            return null;
+        }
+
+        return new User(
             (int)$data['id'],
-            $data['name'],
-            $data['email'],
+            $data['username'],
             $data['password'],
-            $data['role']
-        ) : null;
+            $data['email'],
+        );
     }
 
     public function create(User $user): void
     {
         $stmt = $this->connection->prepare(
-            'INSERT INTO users (name, email, password, role, created_at, updated_at)
-             VALUES (:name, :email, :password, :role, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'
+            'INSERT INTO users (username, email, password, created_at, updated_at)
+             VALUES (:username, :email, :password, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'
         );
         $stmt->execute([
-            'name' => $user->name,
+            'username' => $user->username,
             'email' => $user->email,
-            'password' => $user->passwordHash,
-            'role' => $user->role,
+            'password' => $user->password,
         ]);
     }
 
     public function updatePassword(int $userId, string $newPasswordHash): void
     {
         $stmt = $this->connection->prepare(
-            'UPDATE users SET password = :password WHERE id = :id'
+            'UPDATE users SET password = :password, updated_at = CURRENT_TIMESTAMP WHERE id = :id'
         );
         $stmt->execute([
             'password' => $newPasswordHash,

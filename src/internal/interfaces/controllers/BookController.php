@@ -3,100 +3,114 @@
 namespace Interfaces\controllers;
 
 use Application\services\BookService;
-use Application\services\UserService;
+use Exception;
 
-class ResumeController
+class BookController
 {
-    private BookService $resumeService;
-    private UserService $userService;
+    private BookService $bookService;
 
-    public function __construct(BookService $resumeService, UserService $userService)
+    public function __construct(BookService $bookService)
     {
-        $this->resumeService = $resumeService;
-        $this->userService = $userService;
+        $this->bookService = $bookService;
     }
 
 
-    public function createResume(): void
+    public function addBook(): void
     {
         header('Content-Type: application/json');
-        $userId = $_POST['user_id'];
+        $userId = $_SESSION['user_id'];
         $title = $_POST['title'] ?? '';
-        $description = $_POST['description'] ?? '';
-        $status = $_POST['status'] ?? 'active';
+        $authorName = $_POST['author_name'] ?? '';
+        $authorBirthDate = $_POST['birthday'] ?? '';
+        $publishedDate = $_POST['published_date'] ?? null;
+        $genre = $_POST['genre'] ?? '';
+        $file = $_FILES['file'];
 
-        if ($userId && $title) {
-            $this->resumeService->create($userId, $title, $description, $status);
-            echo json_encode(['success' => true, 'message'=>'it was not that hard right?']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'please no']);;
-        }
-    }
-
-
-    public function updateResumeStatus(): void
-    {
-        $id = $_POST['id'] ?? null;
-        $status = $_POST['status'] ?? 'active';
-
-        if ($id) {
-            $this->resumeService->update($id, $status);
-            echo "Resume status updated successfully!";
-        } else {
-            echo "Error: Missing resume ID.";
-        }
-    }
-
-    public function getContact(int $resumeId): void
-    {
-        header('Content-Type: application/json');
-
-        $resume = $this->resumeService->findById($resumeId);
-
-        if (!$resume) {
-            echo json_encode(['success' => false, 'message' => 'Resume not found']);
+        if (empty($title) || empty($authorName) || !$file) {
+            echo json_encode(['success' => false, 'message' => 'Required fields are missing']);
             return;
         }
 
-        $email = $this->userService->findEmailByUserId($resume->userId);
-        if ($email) {
-            echo json_encode([
-                'success' => true,
-                'email' => $email
-            ]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'User not found']);
-        }
-    }
-    public function deleteResume(): void
-    {
-        $inputData = json_decode(file_get_contents('php://input'), true);
-        $id = $inputData['id'] ?? null;
+        $fileContent = file_get_contents($file['tmp_name']);
 
-        if ($id) {
-            $this->resumeService->delete($id);
-            echo "Resume deleted successfully!";
-        } else {
-            echo "Error: Missing resume ID.";
-        }
-    }
-    public function getResumeCount(): void
-    {
-        header('Content-Type: application/json');
-
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        if (!isset($data['user_id'])) {
-            http_response_code(400);
-            echo json_encode(['error' => 'Missing user_id']);
+        if ($fileContent === false) {
+            echo json_encode(['success' => false, 'message' => 'Failed to read file']);
             return;
         }
 
-        $userId = (int) $data['user_id'];
+        $this->bookService->addBook($title, $authorName, $authorBirthDate, $publishedDate, $genre, $fileContent, $userId);
 
-        $count = $this->resumeService->getUserResumeCount($userId);
+        echo json_encode(['success' => true, 'message' => 'Book added successfully']);
+    }
 
-        echo json_encode(['resumeCount' => $count]);
+
+    public function updateBook(): void
+    {
+        header('Content-Type: application/json');
+
+        $bookId = $_POST['book_id'] ?? null;
+        $title = $_POST['title'] ?? '';
+        $authorName = $_POST['author_name'] ?? '';
+        $publishedDate = $_POST['published_date'] ?? null;
+        $genre = $_POST['genre'] ?? '';
+
+        if (!$bookId || empty($title) || empty($authorName)) {
+            echo json_encode(['success' => false, 'message' => 'Missing required fields']);
+            return;
+        }
+
+        try {
+            $this->bookService->updateBook($bookId, $title, $authorName, $publishedDate, $genre);
+            echo json_encode(['success' => true]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+
+
+
+
+    public function deleteBook(): void
+    {
+        header('Content-Type: application/json');
+        $input = json_decode(file_get_contents('php://input'), true);
+        $id = (int)$input['bookId'];
+        if ($id) {
+            $this->bookService->removeBook((int)$id);
+            echo json_encode(['success' => true, 'message' => 'Book deleted successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Missing book ID']);
+        }
+    }
+
+    public function downloadBook(int $bookId): void
+    {
+
+        $book = $this->bookService->findBookById($bookId);
+        if (!$book) {
+            header("HTTP/1.0 404 Not Found");
+            exit();
+        }
+
+        $fileData = $book->file;
+
+        if ($fileData) {
+            $fileName = "book_" . $bookId . "_" . time() . ".pdf";
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="book_' . $bookId . '.pdf"');
+            header('Content-Length: ' . strlen($fileData));
+            header('Cache-Control: no-cache, no-store, must-revalidate');
+            header('Pragma: no-cache');
+
+            echo $fileData;
+            exit();
+        } else {
+            header("HTTP/1.0 404 Not Found");
+            exit();
+        }
     }
 
 

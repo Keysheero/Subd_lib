@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\entities;
+namespace Domain\Entities;
 
 class User
 {
@@ -12,14 +12,25 @@ class User
             $this->id = $value;
         }
     }
-    public string $name {
+
+    public string $username {
         get {
-            return $this->name;
+            return $this->username;
         }
         set {
-            $this->name = $value;
+            $this->username = $value;
         }
     }
+
+    public string $password {
+        get {
+            return $this->password;
+        }
+        set {
+            $this->password = $value;
+        }
+    }
+
     public string $email {
         get {
             return $this->email;
@@ -28,33 +39,15 @@ class User
             $this->email = $value;
         }
     }
-    public string $passwordHash {
-        get {
-            return $this->passwordHash;
-        }
-        set {
-            $this->passwordHash = $value;
-        }
-    }
-    public string $role {
-        get {
-            return $this->role;
-        }
-        set {
-            $this->role = $value;
-        }
-    }
+
     public string $created_at;
     public string $updated_at;
 
-
-    public function __construct(int $id, string $name, string $email, string $passwordHash, string $role)
+    public function __construct(int $id, string $username, string $password, string $email)
     {
         $this->id = $id;
+        $this->username = $username;
+        $this->password = $password;
         $this->email = $email;
-        $this->name = $name;
-        $this->passwordHash = $passwordHash;
-        $this->role = $role;
     }
-
 }
