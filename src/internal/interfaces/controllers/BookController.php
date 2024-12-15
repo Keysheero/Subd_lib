@@ -2,15 +2,15 @@
 
 namespace Interfaces\controllers;
 
-use Application\services\ResumeService;
+use Application\services\BookService;
 use Application\services\UserService;
 
 class ResumeController
 {
-    private ResumeService $resumeService;
+    private BookService $resumeService;
     private UserService $userService;
 
-    public function __construct(ResumeService $resumeService, UserService $userService)
+    public function __construct(BookService $resumeService, UserService $userService)
     {
         $this->resumeService = $resumeService;
         $this->userService = $userService;

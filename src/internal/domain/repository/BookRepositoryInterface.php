@@ -1,6 +1,6 @@
 <?php
 namespace Domain\repository;
-use Domain\entities\Resume;
+use Domain\Entities\Resume;
 
 interface ResumeRepositoryInterface
 {

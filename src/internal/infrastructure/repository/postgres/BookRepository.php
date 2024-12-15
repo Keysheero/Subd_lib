@@ -1,8 +1,8 @@
 <?php
 
-namespace Infrastructure\repository\postgres;
+namespace Infrastructure\repository\postgres\postgres\postgres;
 
-use Domain\entities\Resume;
+use Domain\Entities\Resume;
 use Domain\repository\ResumeRepositoryInterface;
 use PDO;
 

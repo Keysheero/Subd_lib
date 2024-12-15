@@ -1,11 +1,11 @@
 <?php
 
 namespace Application\services;
-use Domain\entities\Resume;
-use Domain\repository\ResumeRepositoryInterface;
+use Domain\Entities\Resume;
+use Domain\repository\BookRepositoryInterface;
 
 class ResumeService {
-    private ResumeRepositoryInterface $resumeRepository;
+    private BookRepositoryInterface $resumeRepository;
 
 
     public function getUserResumes(int $user_id): array
@@ -17,7 +17,7 @@ class ResumeService {
     {
         return $this->resumeRepository->findAll();
     }
-    public function __construct(ResumeRepositoryInterface $resumeRepository)
+    public function __construct(BookRepositoryInterface $resumeRepository)
     {
         $this->resumeRepository = $resumeRepository;
 
